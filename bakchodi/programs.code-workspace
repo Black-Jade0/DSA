@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../../../msys64/mingw64/C++Programs"
+		},
+		{
+			"path": "../../../../../msys64/mingw64/WebD"
+		}
+	],
+	"settings": {}
+}
