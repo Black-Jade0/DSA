@@ -45,20 +45,43 @@ const int intmin = INT_MIN;
 const ll llmax = LLONG_MAX;
 const ll llmin = LLONG_MIN;
 
-void solve()
+void solve(vi &help)
 {
-    
+    int a, b;
+    cin >> a >> b;
+
+    ll ans = a;
+    int num = help[a - 1];
+
+    if (num != b && (num ^ a) != b)
+    {
+        ans++;
+    }
+    else if (num != b && (num ^ a) == b)
+    {
+        ans += 2;
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
+    vi help((3 * pow(10, 5)));
+    ll j = 0;
+    for (int i = 0; i < help.size(); i++)
+    {
+        j = j ^ i;
+        help[i] = j;
+    }
+
     int INP;
     cin >> INP;
     while (INP--)
     {
-        solve();
+        solve(help);
     }
     return 0;
 }

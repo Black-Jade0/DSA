@@ -45,9 +45,35 @@ const int intmin = INT_MIN;
 const ll llmax = LLONG_MAX;
 const ll llmin = LLONG_MIN;
 
+int maxtwop(int n)
+{
+    int i = 0;
+    while (pow(2, i) <= n)
+    {
+        i++;
+    }
+    return --i;
+}
+
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    int k = maxtwop(n - 1);
+    vi a(n);
+    int temp = pow(2, k) - 1;
+    while (temp >= 0)
+    {
+        cout << temp << " ";
+        temp--;
+    }
+    temp = pow(2, k);
+    while(temp <= n - 1){
+        cout << temp << " ";
+        temp++;
+    }
+    cout << endl;
+    return;
 }
 
 int main()

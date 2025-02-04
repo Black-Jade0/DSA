@@ -47,7 +47,34 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    mpii track;
+    int temp;
+    fi(i, 0, n){
+        cin >> temp;
+        track[temp]++;
+    }
+    vi ans(n);
+    int i = 1;
+    for(auto x:track){
+        if(x.second < 2){
+            cout << -1 << endl;
+            return;
+        }
+        int first = x.first;
+        int second = x.second;
+        int ind = i;
+        fi(j, 0,second){
+            ans[i - 1] = ind + (j + 1)%second;
+            i++;
+        }
+    }
+    fi(i,0,n){
+        cout << ans[i] << " ";
+    }
+    cout << endl;
+    return;
 }
 
 int main()

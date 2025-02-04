@@ -47,18 +47,45 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n, d;
+    cin >> n >> d;
+    pqi a;
+    int temp;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> temp;
+        a.push(temp);
+    }
+    ll ans = 0;
+    while (n)
+    {
+        int b = a.top();
+        if (1LL * b * n > d)
+        {
+            n -= 1LL * (d + b - 1) / b;
+            if (d % b == 0)
+            {
+                n--;
+            }
+
+            ans++;
+        }
+        else
+        {
+            break;
+        }
+        a.pop();
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    int INP;
-    cin >> INP;
-    while (INP--)
-    {
-        solve();
-    }
+
+    solve();
+
     return 0;
 }

@@ -17,10 +17,8 @@ using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using spii = set<pii>;
 using mpii = map<int, int>;
-using mpivi = map<int, vi>;
 using mpci = map<char, int>;
 using mpcl = map<char, ll>;
-using mpcvi = map<char, vi>;
 using mpsi = map<string, int>;
 using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
@@ -47,7 +45,40 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vi amin(n);
+    vi bmin(n);
+    for (int i = 0; i < n; i++)
+    {
+        int m;
+        cin >> m;
+        pqgi t;
+        for (int j = 0; j < m; j++)
+        {
+            int temp;
+            cin >> temp;
+            t.push(temp);
+        }
+        int one = t.top();
+        t.pop();
+        int two = t.top();
+        amin[i] = one;
+        bmin[i] = two;
+    }
+    int one = intmax;
+    int two = intmax;
+    ll sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        one = min(one, amin[i]);
+        two = min(two, bmin[i]);
+        sum += bmin[i];
+    }
+    sum -= two;
+    sum += one;
+    cout << sum << endl;
+    return;
 }
 
 int main()

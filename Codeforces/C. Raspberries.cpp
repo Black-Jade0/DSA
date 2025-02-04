@@ -17,10 +17,8 @@ using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using spii = set<pii>;
 using mpii = map<int, int>;
-using mpivi = map<int, vi>;
 using mpci = map<char, int>;
 using mpcl = map<char, ll>;
-using mpcvi = map<char, vi>;
 using mpsi = map<string, int>;
 using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
@@ -30,14 +28,11 @@ using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
 using pqi = priority_queue<int>;
-using pqgi = priority_queue<int, vi, greater<int>>;
-using pqpii = priority_queue<pii>;
-using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define ilen(a) (int)a.size()
 #define llen(a) (ll) a.size()
 #define all(x) (x).begin(), (x).end()
-#define fi(i, j, n) for (int i = j; i < n; i++)
-#define fl(i, j, n) for (ll i = j; i < n; i++)
+#define fi(i, a, n) for (int i = a; i < n; i++)
+#define fl(i, j, n) for (ll i = ; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
 const char nl = '\n';
 const int intmax = INT_MAX;
@@ -47,7 +42,45 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    int k;
+    cin >> k;
+    vi a(n);
+    fi(i, 0, n)
+    {
+        cin >> a[i];
+    }
+    int ans = intmax;
+    fi(i, 0, n)
+    {
+        ans = min(ans, (k - (a[i] % k)) % k);
+    }
+    if (k == 4)
+    {
+        int count = 0;
+        fi(i, 0, n)
+        {
+            if (a[i] % 2 == 0)
+            {
+                count++;
+            }
+        }
+        if (count > 1)
+        {
+            ans = 0;
+        }
+        else if (count == 1)
+        {
+            ans = min(ans, 1);
+        }
+        else
+        {
+            ans = min(ans, 2);
+        }
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

@@ -47,7 +47,63 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    // ll n, k, b, s;
+    // cin >> n >> k >> b >> s;
+    // if (1LL * k * b > s)
+    // {
+    //     cout << -1 << endl;
+    //     return;
+    // }
+    // ll first = ((1LL * b) / n) * k;
+    // ll last = (((1LL * b) / n) * k) + (((1LL * b) % n) * k);
+    // ll sumleft = s - (1LL * k * b);
+
+    // if (1LL * (1LL * (n) * (k - 1)) - ((1LL * k * b) % n) < sumleft)
+    // {
+    //     cout << -1 << endl;
+    //     return;
+    // }
+    // for (ll i = 0; i < n - 1; i++)
+    // {
+    //     cout << first + (sumleft <= (k - 1) ? sumleft : k - 1) << " ";
+    //     sumleft -= (sumleft <= (k - 1) ? sumleft : k - 1);
+    // }
+    // cout << last + (sumleft <= (k - 1) ? sumleft : k - 1) << " ";
+    // cout << endl;
+    // return;
+
+    // DONT KNOW WHATS WRONG, PROBABLY OUT OF BONDS ANYTHERE
+
+    // IT WAS SIMPLE, JUST PUT THE FIRST ELEMENT AS K * B; THUS COMPLETING THE BEAUTY REQUIREMENT
+    // THEN COMPLETE THE LEFT SUM
+
+    ll n, k, b, s;
+    cin >> n >> k >> b >> s;
+    vll a(n);
+    a[0] = 1LL * k * b;
+    s -= 1LL * k * b;
+    if (s < 0)
+        cout << "-1\n";
+    else
+    {
+        for (int i = 0; i < n; ++i)
+        {
+            int now = min(k - 1, s);
+            a[i] += now;
+            s -= now;
+        }
+        if (s > 0)
+            cout << "-1\n";
+        else
+        {
+            for (int i = 0; i < n; ++i)
+            {
+                cout << a[i] << " ";
+            }
+            cout << "\n";
+        }
+    }
+    return;
 }
 
 int main()

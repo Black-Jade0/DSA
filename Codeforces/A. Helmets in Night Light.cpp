@@ -17,10 +17,8 @@ using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using spii = set<pii>;
 using mpii = map<int, int>;
-using mpivi = map<int, vi>;
 using mpci = map<char, int>;
 using mpcl = map<char, ll>;
-using mpcvi = map<char, vi>;
 using mpsi = map<string, int>;
 using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
@@ -30,7 +28,6 @@ using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
 using pqi = priority_queue<int>;
-using pqgi = priority_queue<int, vi, greater<int>>;
 using pqpii = priority_queue<pii>;
 using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define ilen(a) (int)a.size()
@@ -47,7 +44,40 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n, p;
+    cin >> n >> p;
+    pqgpii a;
+    vi b(n);
+    vi c(n);
+    fi(i, 0, n)
+    {
+        cin >> b[i];
+    }
+    fi(i, 0, n)
+    {
+        cin >> c[i];
+        a.push({c[i], b[i]});
+    }
+    ll ans = 0;
+    ans += p;
+    n--;
+    while (n)
+    {
+        if (!a.empty() && a.top().first < p)
+        {
+            int m = min(n, a.top().second);
+            n -= m;
+            ans += (1LL * m * (a.top().first));
+            a.pop();
+        }
+        else
+        {
+            ans += (1LL * n * (p));
+            break;
+        }
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

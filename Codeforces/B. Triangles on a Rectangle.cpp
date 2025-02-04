@@ -47,7 +47,56 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int h, w;
+    cin >> w >> h;
+    int k1;
+    cin >> k1;
+    vi a1(k1);
+    for (int i = 0; i < k1; i++)
+    {
+        cin >> a1[i];
+    }
+    int k2;
+    cin >> k2;
+    vi a2(k2);
+    for (int i = 0; i < k2; i++)
+    {
+        cin >> a2[i];
+    }
+    int k3;
+    cin >> k3;
+    vi a3(k3);
+    for (int i = 0; i < k3; i++)
+    {
+        cin >> a3[i];
+    }
+    int k4;
+    cin >> k4;
+    vi a4(k4);
+    for (int i = 0; i < k4; i++)
+    {
+        cin >> a4[i];
+    }
+    ll a = 1LL * (a1[k1 - 1] - a1[0]) * h;
+    ll b = 1LL * (a2[k2 - 1] - a2[0]) * h;
+    ll c = 1LL * (a3[k3 - 1] - a3[0]) * w;
+    ll d = 1LL * (a4[k4 - 1] - a4[0]) * w;
+
+    ll ans = d;
+    if (ans < a)
+    {
+        ans = a;
+    }
+    if (ans < b)
+    {
+        ans = b;
+    }
+    if (ans < c)
+    {
+        ans = c;
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

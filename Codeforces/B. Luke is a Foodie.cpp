@@ -47,7 +47,33 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n, x;
+    cin >> n >> x;
+    vi a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    ll ans = 0;
+    int mint = a[0];
+    int maxt = a[0];
+    for (int i = 1; i < n; i++)
+    {
+        mint = min(mint, a[i]);
+        maxt = max(maxt, a[i]);
+        if (maxt - mint <= 2 * x)
+        {
+            continue;
+        }
+        else
+        {
+            ans++;
+            maxt = a[i];
+            mint = a[i];
+        }
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

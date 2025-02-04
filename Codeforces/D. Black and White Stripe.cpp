@@ -47,7 +47,38 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    int front = 0;
+    int back = 0;
+    int wcount = 0;
+    while (front < k)
+    {
+        if (s[front] == 'W')
+        {
+            wcount++;
+        }
+        front++;
+    }
+    int ans = wcount;
+    while (front < n)
+    {
+        if (s[front] == 'W')
+        {
+            wcount++;
+        }
+        front++;
+        if (s[back] == 'W')
+        {
+            wcount--;
+        }
+        back++;
+        ans = min(ans, wcount);
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

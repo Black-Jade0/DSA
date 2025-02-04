@@ -47,7 +47,28 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n, r, b;
+    cin >> n >> r >> b;
+    int mid = r / (b + 1);
+    string help;
+    for (int i = 0; i < mid; i++)
+    {
+        help.push_back('R');
+    }
+    string ans;
+    for (int i = 0; i < b; i++)
+    {
+        ans.append(help);
+        if (r % (b + 1))
+        {
+            ans.push_back('R');
+            r--;
+        }
+        ans.push_back('B');
+    }
+    ans.append(help);
+    cout << ans << endl;
+    return;
 }
 
 int main()

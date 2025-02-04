@@ -17,10 +17,8 @@ using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using spii = set<pii>;
 using mpii = map<int, int>;
-using mpivi = map<int, vi>;
 using mpci = map<char, int>;
 using mpcl = map<char, ll>;
-using mpcvi = map<char, vi>;
 using mpsi = map<string, int>;
 using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
@@ -47,7 +45,30 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n, k;
+    cin >> n >> k;
+    vi a(n);
+    vpii track;
+    int temp;
+    fi(i, 0, n)
+    {
+        cin >> a[i];
+        temp = a[i] % k;
+        if (!temp)
+        {
+            temp = k;
+        }
+
+        track.push_back({temp, i + 1});
+    }
+    stable_sort(track.begin(), track.end(), [](pii a, pii b)
+                { return a.first > b.first; });
+    for (auto x : track)
+    {
+        cout << x.second << " ";
+    }
+    cout << endl;
+    return;
 }
 
 int main()

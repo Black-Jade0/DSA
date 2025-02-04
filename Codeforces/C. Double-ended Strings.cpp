@@ -47,7 +47,26 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    string a, b;
+    cin >> a >> b;
+    int al = a.length();
+    int bl = b.length();
+    int ans = 0;
+    for (int len = 1; len <= min(al, bl); len++)
+    {
+        for (int i = 0; i <= al - len; i++)
+        {
+            for (int j = 0; j <= bl - len; j++)
+            {
+                if (a.substr(i, len) == b.substr(j, len))
+                {
+                    ans = max(ans, len);
+                }
+            }
+        }
+    }
+    cout << al + bl - (2 * ans) << endl;
+    return;
 }
 
 int main()

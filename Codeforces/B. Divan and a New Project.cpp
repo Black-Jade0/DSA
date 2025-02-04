@@ -47,7 +47,56 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vpii a(n);
+    for (int i = 1; i < n + 1; i++)
+    {
+        cin >> a[i - 1].first;
+        a[i - 1].second = i;
+    }
+    sort(a.begin(), a.end());
+    a.push_back({-1, 0});
+    vpii b(n + 1);
+    bool flag = true;
+    int front = 0;
+    int back = n;
+    for (int i = 0; i < n + 1; i++)
+    {
+        if (flag)
+        {
+            b[front] = a[i];
+            front++;
+        }
+        else
+        {
+            b[back] = a[i];
+            back--;
+        }
+        flag = !flag;
+    }
+    vi ans(n + 1);
+    for (int i = 0; i < n + 1; i++)
+    {
+        ans[b[i].second] = i + 1;
+    }
+    ll time = 0;
+    int z = (n + 1) / 2;
+    for (int i = 0; i < n + 1; i++)
+    {
+        if (i == z)
+        {
+            continue;
+        }
+        time += 1ll * b[i].first * abs(z - i);
+    }
+    cout << 1LL * time * 2 << endl;
+    for (int i = 0; i < n + 1; i++)
+    {
+        cout << ans[i] << " ";
+    }
+    cout << endl;
+    return;
 }
 
 int main()

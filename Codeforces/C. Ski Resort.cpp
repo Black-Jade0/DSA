@@ -17,10 +17,8 @@ using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using spii = set<pii>;
 using mpii = map<int, int>;
-using mpivi = map<int, vi>;
 using mpci = map<char, int>;
 using mpcl = map<char, ll>;
-using mpcvi = map<char, vi>;
 using mpsi = map<string, int>;
 using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
@@ -47,7 +45,34 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n, k, q;
+    cin >> n >> k >> q;
+    vi a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    int prev = 0;
+    ll ans = 0;
+    int i = 0;
+    for (; i < n; i++)
+    {
+        if (a[i] > q)
+        {
+            if (i - prev >= k)
+            {
+                ans += (1LL * (i - prev - k + 1) * (i - prev - k + 2) / 2);
+            }
+            prev = i + 1;
+        }
+    }
+    if (i - prev >= k)
+    {
+        ans += (1LL * (i - prev - k + 1) * (i - prev - k + 2) / 2);
+    }
+
+    cout << ans << endl;
+    return;
 }
 
 int main()

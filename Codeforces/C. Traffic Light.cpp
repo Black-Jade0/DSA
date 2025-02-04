@@ -47,7 +47,45 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n;
+    char c;
+    cin >> n >> c;
+    string s;
+    cin >> s;
+    if (c == 'g')
+    {
+        cout << 0 << endl;
+        return;
+    }
+
+    mpivi track;
+    for (int i = 0; i < n; i++)
+    {
+        if (s[i] == c)
+        {
+            track[1].push_back(i);
+        }
+        if (s[i] == 'g')
+        {
+            track[2].push_back(i);
+        }
+    }
+    int ans = 0;
+    for (int i = 0; i < track[1].size(); i++)
+    {
+        int a = track[1][i];
+        auto b = upper_bound(track[2].begin(), track[2].end(), a);
+        if (b != track[2].end())
+        {
+            ans = max(ans, *b - a);
+        }
+        else
+        {
+            ans = max(ans, (int)s.size() - a + *upper_bound(track[2].begin(), track[2].end(), -1));
+        }
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

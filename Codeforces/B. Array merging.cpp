@@ -17,10 +17,8 @@ using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using spii = set<pii>;
 using mpii = map<int, int>;
-using mpivi = map<int, vi>;
 using mpci = map<char, int>;
 using mpcl = map<char, ll>;
-using mpcvi = map<char, vi>;
 using mpsi = map<string, int>;
 using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
@@ -47,7 +45,56 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vi a(n), b(n);
+    mpipii track;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i];
+    }
+    int i = 0;
+    int msum = intmin;
+    int num = -1;
+    while (i < n)
+    {
+        int temp = a[i];
+        int count = 0;
+        while (i < n && a[i] == temp)
+        {
+            count++;
+            i++;
+        }
+        track[temp].first = max(track[temp].first, count);
+        if (track[temp].first + track[temp].second > msum)
+        {
+            msum = track[temp].first + track[temp].second;
+            num = temp;
+        }
+    }
+    i = 0;
+    while (i < n)
+    {
+        int temp = b[i];
+        int count = 0;
+        while (i < n && b[i] == temp)
+        {
+            count++;
+            i++;
+        }
+        track[temp].second = max(track[temp].second, count);
+        if (track[temp].first + track[temp].second > msum)
+        {
+            msum = track[temp].first + track[temp].second;
+            num = temp;
+        }
+    }
+    cout << msum << endl;
+    return;
 }
 
 int main()

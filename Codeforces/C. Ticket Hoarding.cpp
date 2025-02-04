@@ -1,10 +1,11 @@
 #include <bits/stdc++.h>
+#include <cmath>
 
 using namespace std;
 
 using ll = long long;
 using pii = pair<int, int>;
-using pllll = pair<long long, long long>;
+using pllll = pair<ll, ll>;
 using vi = vector<int>;
 using vs = vector<string>;
 using vb = vector<bool>;
@@ -13,31 +14,26 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpllll = vector<pair<long long, long long>>;
+using vpllll = vector<pair<ll, ll>>;
 using si = set<int>;
 using spii = set<pii>;
 using mpii = map<int, int>;
-using mpivi = map<int, vi>;
 using mpci = map<char, int>;
 using mpcl = map<char, ll>;
-using mpcvi = map<char, vi>;
 using mpsi = map<string, int>;
 using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpllpllll = map<long long, pair<long long, long long>>;
+using mpllpllll = map<ll, pair<ll, ll>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
 using pqi = priority_queue<int>;
-using pqgi = priority_queue<int, vi, greater<int>>;
-using pqpii = priority_queue<pii>;
-using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define ilen(a) (int)a.size()
 #define llen(a) (ll) a.size()
 #define all(x) (x).begin(), (x).end()
-#define fi(i, j, n) for (int i = j; i < n; i++)
-#define fl(i, j, n) for (ll i = j; i < n; i++)
+#define fi(i, n) for (int i = 0; i < n; i++)
+#define fl(i, n) for (ll i = 0; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
 const char nl = '\n';
 const int intmax = INT_MAX;
@@ -47,7 +43,48 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    ll m, k;
+    cin >> m >> k;
+    vi b(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i];
+    }
+
+    ll req = (1LL * k + m - 1) / m;
+    vi a = b;
+    sort(b.begin(), b.end());
+    if (k <= m)
+    {
+        cout << b[0] * k << endl;
+        return;
+    }
+    int gnum = b[req - 1];
+    mpii days;
+    for (int i = 0; i < req; i++)
+    {
+        days[b[i]]++;
+    }
+    int done = 0;
+    int i = 0;
+    ll ans = 0;
+    while (i < n && k > 0)
+    {
+        if (days[a[i]])
+        {
+            days[a[i]]--;
+            int temp = (gnum > a[i] ? m : (1LL * (k % m) ? (k % m) : m));
+            ans += 1LL * (done + a[i]) * temp;
+            done += temp;
+            k -= temp;
+        }
+        i++;
+    }
+
+    cout << ans << endl;
+    return;
 }
 
 int main()
