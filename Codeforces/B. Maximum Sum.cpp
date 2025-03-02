@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -50,7 +48,7 @@ using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define inc(n) \
     int n;     \
     cin >> n;
-#define llnc(n) \
+#define nllc(n) \
     ll n;       \
     cin >> n;
 #define viac(a, n)                \
@@ -76,7 +74,40 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    inc(n);
+    inc(k);
+    viac(a, n);
+    sort(a.begin(), a.end(), greater<int>{});
+    int i = 0;
+    int j = n - 1;
+    ll neg = 0;
+    int temp = k;
+    while (temp)
+    {
+        neg += a[j] + a[j - 1];
+        j -= 2;
+        temp--;
+    }
+    j += 2;
+    ll mn = neg;
+    temp = k;
+    while (i < k)
+    {
+        neg -= (a[j] + a[j - 1]);
+        neg += a[i];
+        i++;
+        j += 2;
+        mn = min(mn, neg);
+    }
+    i = 0;
+    ll sum = 0;
+    while (i < n)
+    {
+        sum += a[i];
+        i++;
+    }
+    cout << sum - mn << endl;
+    return;
 }
 
 int main()

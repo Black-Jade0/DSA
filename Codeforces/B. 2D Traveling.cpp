@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -47,11 +45,8 @@ using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fl(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define inc(n) \
-    int n;     \
-    cin >> n;
-#define llnc(n) \
-    ll n;       \
+#define nc(n) \
+    int n;    \
     cin >> n;
 #define viac(a, n)                \
     vi a(n);                      \
@@ -76,20 +71,50 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    nc(n);
+    nc(k);
+    nc(a);
+    nc(b);
+    vpllll cit(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> cit[i].first;
+        cin >> cit[i].second;
+    }
+    ll ans = 0;
+    ans += 1LL * llabs(cit[a - 1].first - cit[b - 1].first);
+    ans += 1LL * llabs(cit[a - 1].second - cit[b - 1].second);
+    ll amin = llmax / 2;
+    ll bmin = llmax / 2;
+    if (k == 0)
+    {
+        cout << ans << endl;
+        return;
+    }
+
+    for (int i = 0; i < k; i++)
+    {
+        amin = 1LL * min(1LL * llabs(cit[i].first - cit[a - 1].first) + llabs(cit[i].second - cit[a - 1].second), amin);
+        bmin = 1LL * min(1LL * llabs(cit[i].first - cit[b - 1].first) + llabs(cit[i].second - cit[b - 1].second), bmin);
+    }
+    ans = 1LL * min(ans, 1LL * amin + bmin);
+    cout << ans << endl;
+    return;
 }
 
 int main()
 {
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    ll INT;
-    cin >> INT;
-    while (INT)
-    {
-        solve();
-        INT--;
-    }
+    // cin.tie(0);
+    // ll INT;
+    // cin >> INT;
+    // while (INT)
+    // {
+    //     solve();
+    //     INT--;
+    // }
+    cout << intmax << endl;
+    cout << llmax << endl;
 
     return 0;
 }

@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -40,18 +38,14 @@ using pqi = priority_queue<int>;
 using pqgi = priority_queue<int, vi, greater<int>>;
 using pqpii = priority_queue<pii>;
 using pqgpii = priority_queue<pii, vpii, greater<pii>>;
-
 #define ilen(a) (int)a.size()
 #define llen(a) (ll) a.size()
 #define all(x) (x).begin(), (x).end()
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fl(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define inc(n) \
-    int n;     \
-    cin >> n;
-#define llnc(n) \
-    ll n;       \
+#define nc(n) \
+    int n;    \
     cin >> n;
 #define viac(a, n)                \
     vi a(n);                      \
@@ -59,15 +53,6 @@ using pqgpii = priority_queue<pii, vpii, greater<pii>>;
     {                             \
         cin >> a[i];              \
     }
-#define siac(a, n)                \
-    si a;                         \
-    int TEMP;                     \
-    for (int i = 0; i < (n); i++) \
-    {                             \
-        cin >> TEMP;              \
-        a.insert(TEMP);           \
-    }
-
 const char nl = '\n';
 const int intmax = INT_MAX;
 const int intmin = INT_MIN;
@@ -76,7 +61,81 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    nc(n);
+    nc(q);
+    vi a(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    vvi track(30, vi(n));
+    int pre = -1;
+    for (int i = 0; i < 30; i++)
+    {
+        int curr = 1 << i;
+        pre = -1;
+        for (int j = 0; j < n; j++)
+        {
+            if (a[j] >= curr)
+            {
+                pre = j;
+            }
+            track[i][j] = pre;
+        }
+    }
+    viac(b, q);
+    vi prea(n + 1, 0);
+    for (int i = n - 1; i >= 0; i--)
+    {
+        prea[i] = a[i] ^ prea[i + 1];
+    }
+
+    for (int k = 0; k < q; k++)
+    {
+        int x = b[k];
+        int curr = x;
+        int ans = 0;
+        int msb = (int)log2(x);
+        if (x == 1)
+        {
+            if (a[n - 1] == 1)
+            {
+                cout << 1 << " ";
+            }
+            else
+            {
+                cout << 0 << " ";
+            }
+            continue;
+        }
+        int i = track[msb][n - 1];
+        while (i >= 0)
+        {
+            x = curr ^ prea[i + 1];
+            if (x < a[i])
+            {
+                break;
+            }
+            if (x == a[i])
+            {
+                i--;
+                break;
+            }
+            msb = (int)log2(curr ^ prea[i]);
+            if (i == 0)
+            {
+                i--;
+            }
+            else
+            {
+                i = track[msb][--i];
+            }
+        }
+        ans += n - i - 1;
+        cout << ans << " ";
+    }
+    cout << endl;
+    return;
 }
 
 int main()

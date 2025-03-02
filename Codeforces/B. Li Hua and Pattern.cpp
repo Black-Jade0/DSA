@@ -76,7 +76,40 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    inc(n);
+    inc(k);
+    vvi a(n, vi(n));
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cin >> a[i][j];
+        }
+    }
+    int count = 0;
+    if (n == 1)
+    {
+        cout << "YES" << endl;
+        return;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (a[i][j] != a[n - i - 1][n - j - 1])
+            {
+                a[n - i - 1][n - j - 1] = a[i][j];
+                count++;
+            }
+        }
+    }
+    if (count > k || ((k - count) % 2 != 0 && !(n & 1)))
+    {
+        cout << "NO" << endl;
+        return;
+    }
+    cout << "YES" << endl;
+    return;
 }
 
 int main()

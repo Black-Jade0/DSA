@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -47,11 +45,8 @@ using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fl(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define inc(n) \
-    int n;     \
-    cin >> n;
-#define llnc(n) \
-    ll n;       \
+#define nc(n) \
+    int n;    \
     cin >> n;
 #define viac(a, n)                \
     vi a(n);                      \
@@ -76,7 +71,45 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    nc(n);
+    nc(q);
+    viac(a, n);
+    viac(p, q);
+    sti t;
+    t.push(p[0]);
+    for (int i = 1; i < q; i++)
+    {
+        if (p[i] < t.top())
+        {
+            t.push(p[i]);
+        }
+    }
+    sti track;
+    while (!t.empty())
+    {
+        track.push(t.top());
+        t.pop();
+    }
+    for (int i = 0; i < n; i++)
+    {
+        sti temp = track;
+        while (!temp.empty())
+        {
+            int x = 1 << temp.top();
+            if (a[i] % x == 0)
+            {
+                a[i] += (x >> 1);
+            }
+            temp.pop();
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << a[i] << " ";
+    }
+    cout << nl;
+    return;
 }
 
 int main()

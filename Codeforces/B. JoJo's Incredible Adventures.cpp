@@ -76,7 +76,35 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
+    string s;
+    cin >> s;
+    int n = s.size();
+    int i = 0;
+    int count = 0;
+    int ans = 0;
+    int temp = 0;
+    while (i < 2 * n)
+    {
+        if (s[count] == '1')
+        {
+            temp++;
+        }
+        else
+        {
+            temp = 0;
+        }
+        ans = max(ans, temp);
+        count = (count + 1) % n;
+        i++;
+    }
+    if (ans >= n)
+    {
+        cout << 1LL * n * n << endl;
+        return;
+    }
     
+    cout << ((ans != 1) ? (1LL * ((ans + 1) / 2) * ((ans + 2) / 2)) : 1) << endl;
+    return;
 }
 
 int main()

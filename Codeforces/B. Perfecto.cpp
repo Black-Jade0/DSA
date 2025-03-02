@@ -74,9 +74,59 @@ const int intmin = INT_MIN;
 const ll llmax = LLONG_MAX;
 const ll llmin = LLONG_MIN;
 
+bool help(int n)
+{
+    ll root = sqrt(1LL * n * (n + 1) / 2);
+    if (root * root == (1LL  * n * (n + 1) / 2))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+bool help2(ll n)
+{
+    ll root = sqrt(n);
+    if (1LL  *root * root == n)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 void solve()
 {
-    
+    inc(n);
+    if (help(n))
+    {
+        cout << -1 << endl;
+        return;
+    }
+    vi ans(n);
+    iota(ans.begin(), ans.end(), 1);
+    ll curr = 0;
+    int i = 0;
+    while (i < n)
+    {
+        curr += ans[i];
+        if (help2(curr))
+        {
+            int temp = ans[i];
+            ans[i] = ans[i + 1];
+            ans[i + 1] = temp;
+            curr += ans[i];
+            i++;
+        }
+        i++;
+    }
+    i = 0;
+    while (i < n)
+    {
+        cout << ans[i] << " ";
+        i++;
+    }
+    cout << endl;
+    return;
 }
 
 int main()

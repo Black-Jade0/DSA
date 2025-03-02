@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -47,25 +45,14 @@ using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fl(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define inc(n) \
-    int n;     \
-    cin >> n;
-#define llnc(n) \
-    ll n;       \
+#define nc(n) \
+    int n;    \
     cin >> n;
 #define viac(a, n)                \
     vi a(n);                      \
     for (int i = 0; i < (n); i++) \
     {                             \
         cin >> a[i];              \
-    }
-#define siac(a, n)                \
-    si a;                         \
-    int TEMP;                     \
-    for (int i = 0; i < (n); i++) \
-    {                             \
-        cin >> TEMP;              \
-        a.insert(TEMP);           \
     }
 
 const char nl = '\n';
@@ -76,7 +63,26 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    nc(n);
+    viac(a, n);
+    int ans = a[0];
+    int sum = a[0];
+    int mn = min(0, a[0]);
+    int i = 1;
+    while (i < n)
+    {
+        if (abs(a[i - 1] % 2) == abs(a[i] % 2))
+        {
+            sum = 0;
+            mn = 0;
+        }
+        sum += a[i];
+        ans = max(ans, sum - mn);
+        mn = min(mn, sum);
+        i++;
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

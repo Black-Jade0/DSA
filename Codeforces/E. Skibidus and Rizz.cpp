@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -40,43 +38,86 @@ using pqi = priority_queue<int>;
 using pqgi = priority_queue<int, vi, greater<int>>;
 using pqpii = priority_queue<pii>;
 using pqgpii = priority_queue<pii, vpii, greater<pii>>;
-
 #define ilen(a) (int)a.size()
 #define llen(a) (ll) a.size()
 #define all(x) (x).begin(), (x).end()
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fl(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define inc(n) \
-    int n;     \
-    cin >> n;
-#define llnc(n) \
-    ll n;       \
-    cin >> n;
-#define viac(a, n)                \
-    vi a(n);                      \
-    for (int i = 0; i < (n); i++) \
-    {                             \
-        cin >> a[i];              \
-    }
-#define siac(a, n)                \
-    si a;                         \
-    int TEMP;                     \
-    for (int i = 0; i < (n); i++) \
-    {                             \
-        cin >> TEMP;              \
-        a.insert(TEMP);           \
-    }
-
 const char nl = '\n';
 const int intmax = INT_MAX;
 const int intmin = INT_MIN;
 const ll llmax = LLONG_MAX;
 const ll llmin = LLONG_MIN;
 
+string ans;
+int n, m, k;
+char a, b;
 void solve()
 {
-    
+    cin >> n >> m >> k;
+    ans.clear();
+
+    if (n == 0)
+    {
+        if (m > k)
+        {
+            cout << "-1\n";
+            return;
+        }
+        ans.assign(m, '1');
+        cout << ans << '\n';
+        return;
+    }
+
+    if (m == 0)
+    {
+        if (n > k)
+        {
+            cout << "-1\n";
+            return;
+        }
+        ans.assign(n, '0');
+        cout << ans << '\n';
+        return;
+    }
+
+    if (n > m)
+    {
+        a = '0';
+        b = '1';
+    }
+    else
+    {
+        a = '1';
+        b = '0';
+    }
+
+    int x = max(n, m);
+    int y = min(n, m);
+
+    if (x - y > k || k > x)
+    {
+        cout << "-1" << endl;
+        return;
+    }
+
+    ans.append(k, a);
+
+    x -= k;
+    int i = x;
+
+    while (i--)
+    {
+        ans += b;
+        ans += a;
+    }
+
+    y -= x;
+    if (y > 0)
+        ans.append(y, b);
+
+    cout << ans << endl;
 }
 
 int main()

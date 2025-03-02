@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -74,9 +72,63 @@ const int intmin = INT_MIN;
 const ll llmax = LLONG_MAX;
 const ll llmin = LLONG_MIN;
 
+const int mod = 1e9 + 7;
+
 void solve()
 {
-    
+    llnc(n);
+    llnc(x);
+    llnc(k);
+    string s;
+    cin >> s;
+    int i = 0;
+    ll ans = 0;
+    ll pos = x;
+    ll firstback = llmax;
+    ll track = 0;
+    for (int j = 0; j < n; j++)
+    {
+        if (s[j] == 'L')
+        {
+            track--;
+        }
+        else
+        {
+            track++;
+        }
+        if (track == 0)
+        {
+            firstback = j + 1;
+            break;
+        }
+    }
+
+    while (i < n && k)
+    {
+        if (s[i] == 'L')
+        {
+            pos--;
+        }
+        else
+        {
+            pos++;
+        }
+        k--;
+        if (pos == 0)
+        {
+            ans++;
+            break;
+        }
+        i++;
+    }
+    if (i == n || !k)
+    {
+        cout << ans << endl;
+        return;
+    }
+    ans += (k / firstback);
+    cout << ans << endl;
+    return;
 }
 
 int main()

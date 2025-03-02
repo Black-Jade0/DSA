@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -47,10 +45,10 @@ using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fl(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define inc(n) \
+#define nic(n) \
     int n;     \
     cin >> n;
-#define llnc(n) \
+#define nllc(n) \
     ll n;       \
     cin >> n;
 #define viac(a, n)                \
@@ -76,7 +74,37 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    nic(n);
+    nllc(c);
+    viac(a, n);
+    int l = 1;
+    int r = 1e9;
+    while (l <= r)
+    {
+        ll mid = (l + r) / 2;
+        ll curr = 0;
+        for (int i = 0; i < n; i++)
+        {
+            curr += (a[i] + 2 * mid) * (a[i] + 2 * mid);
+            if (curr > c)
+            {
+                break;
+            }
+        }
+        if (curr == c)
+        {
+            cout << mid << endl;
+            return;
+        }
+        else if (curr < c)
+        {
+            l = mid + 1;
+        }
+        else
+        {
+            r = mid - 1;
+        }
+    }
 }
 
 int main()

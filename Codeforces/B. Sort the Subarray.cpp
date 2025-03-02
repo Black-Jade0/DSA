@@ -76,7 +76,31 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    inc(n);
+    viac(a, n);
+    viac(b, n);
+    int ind = 0;
+    fi(i, 0, n)
+    {
+        if (a[i] != b[i])
+        {
+            ind = i;
+            break;
+        }
+    }
+    int temp = ind + 1;
+    while (temp < n && b[temp] >= b[temp - 1])
+    {
+        temp++;
+    }
+    int r = temp;
+    temp = ind - 1;
+    while (temp >= 0 && b[temp] <= b[temp + 1])
+    {
+        temp--;
+    }
+    cout << temp + 2 <<" " << r << endl;
+    return;
 }
 
 int main()

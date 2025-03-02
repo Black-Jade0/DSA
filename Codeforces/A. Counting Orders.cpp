@@ -74,9 +74,30 @@ const int intmin = INT_MIN;
 const ll llmax = LLONG_MAX;
 const ll llmin = LLONG_MIN;
 
+const int mod = 1e9 + 7;
+
 void solve()
 {
-    
+    inc(n);
+    viac(a, n);
+    viac(b, n);
+    sort(b.begin(), b.end(), greater<int>());
+    sort(a.begin(), a.end());
+    ll ans = 1;
+    if (a[n - 1] <= b[0] || a[0] <= b[n - 1])
+    {
+        cout << 0 << endl;
+        return;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        int curr = b[i];
+        auto it = upper_bound(a.begin(), a.end(), curr);
+        int ind = it - a.begin();
+        ans = 1LL *(ans * (n - ind - i)) % mod;
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

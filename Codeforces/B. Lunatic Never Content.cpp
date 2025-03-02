@@ -76,7 +76,15 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    inc(n);
+    viac(a, n);
+    int ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        ans = __gcd(ans, abs(a[i] - a[n - i - 1]));
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

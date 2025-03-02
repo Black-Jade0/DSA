@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -50,7 +48,7 @@ using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define inc(n) \
     int n;     \
     cin >> n;
-#define llnc(n) \
+#define nllc(n) \
     ll n;       \
     cin >> n;
 #define viac(a, n)                \
@@ -76,7 +74,36 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    inc(n);
+    viac(a, n);
+    int l = 1;
+    int r = 1;
+    int mn = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int count = 0;
+        int temp = a[i];
+        int j = i + 1;
+        for (; j < n; j++)
+        {
+            if (a[j] < temp)
+            {
+                count++;
+            }
+            else if (a[j] > temp)
+            {
+                count--;
+            }
+            if (count > mn)
+            {
+                l = i + 1;
+                r = j + 1;
+                mn = count;
+            }
+        }
+    }
+    cout << l << " " << r << endl;
+    return;
 }
 
 int main()

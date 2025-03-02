@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -47,11 +45,8 @@ using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fl(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define inc(n) \
-    int n;     \
-    cin >> n;
-#define llnc(n) \
-    ll n;       \
+#define nc(n) \
+    int n;    \
     cin >> n;
 #define viac(a, n)                \
     vi a(n);                      \
@@ -76,7 +71,24 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    nc(n);
+    nc(x);
+    viac(a, n);
+    if (n == 1)
+    {
+        cout << x + a[0] << endl;
+        return;
+    }
+
+    sort(a.begin(), a.end());
+    int i = 1;
+    while (i < n && x - (1LL * i * (a[i] - a[i - 1])) > 0)
+    {
+        x -= (i * (a[i] - a[i - 1]));
+        i++;
+    }
+    cout << 1LL * (x / i) + a[i - 1] << endl;
+    return;
 }
 
 int main()
@@ -92,4 +104,4 @@ int main()
     }
 
     return 0;
-}
+}E. Building an Aquarium

@@ -13,7 +13,6 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
 using sll = set<ll>;
@@ -32,7 +31,6 @@ using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
@@ -50,7 +48,7 @@ using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define inc(n) \
     int n;     \
     cin >> n;
-#define llnc(n) \
+#define nllc(n) \
     ll n;       \
     cin >> n;
 #define viac(a, n)                \
@@ -76,7 +74,40 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    inc(k);
+    int x = 0;
+    int y = 1;
+    vpii ans;
+    while (k)
+    {
+        int count = 1;
+        int sum = 0;
+        while (sum + count <= k)
+        {
+            sum += count;
+            count++;
+        }
+        k -= sum;
+        while (count > 1)
+        {
+            ans.push_back({x, y});
+            ans.push_back({x, -y});
+            y++;
+            count -= 2;
+        }
+        if (count)
+        {
+            ans.push_back({x, y});
+            y++;
+        }
+        x++;
+    }
+    cout << ans.size() << endl;
+    for (auto x : ans)
+    {
+        cout << x.first << " " << x.second << endl;
+    }
+    return;
 }
 
 int main()

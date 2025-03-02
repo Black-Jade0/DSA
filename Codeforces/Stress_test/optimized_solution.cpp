@@ -1,11 +1,10 @@
 #include <bits/stdc++.h>
-#include <cmath>
 
 using namespace std;
 
 using ll = long long;
 using pii = pair<int, int>;
-using pllll = pair<ll, ll>;
+using pllll = pair<long long, long long>;
 using vi = vector<int>;
 using vs = vector<string>;
 using vb = vector<bool>;
@@ -14,89 +13,127 @@ using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
 using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
-using vpllll = vector<pair<ll, ll>>;
+using vpllll = vector<pair<long long, long long>>;
 using si = set<int>;
+using sll = set<ll>;
+using spii = set<pii>;
+using sti = stack<int>;
+using qi = queue<int>;
 using mpii = map<int, int>;
+using mpllll = map<ll, ll>;
+using mpgllll = map<ll, ll, greater<int>>;
+using mpivi = map<int, vi>;
 using mpci = map<char, int>;
 using mpcl = map<char, ll>;
+using mpcvi = map<char, vi>;
 using mpsi = map<string, int>;
 using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpipii = map<int, pair<int, int>>;
-using mpllpllll = map<ll, pair<ll, ll>>;
+using mpllpllll = map<long long, pair<long long, long long>>;
+using mppiivi = map<pii, vi>;
+using mppiimpii = map<pii, mpii>;
 using pqi = priority_queue<int>;
+using pqgi = priority_queue<int, vi, greater<int>>;
+using pqpii = priority_queue<pii>;
+using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 #define ilen(a) (int)a.size()
 #define llen(a) (ll) a.size()
 #define all(x) (x).begin(), (x).end()
-#define fi(i, n) for (int i = 0; i < n; i++)
-#define fl(i, n) for (ll i = 0; i < n; i++)
+#define fi(i, j, n) for (int i = j; i < n; i++)
+#define fl(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
+#define nc(n) \
+    int n;    \
+    cin >> n;
+#define viac(a, n)                \
+    vi a(n);                      \
+    for (int i = 0; i < (n); i++) \
+    {                             \
+        cin >> a[i];              \
+    }
 const char nl = '\n';
 const int intmax = INT_MAX;
 const int intmin = INT_MIN;
 const ll llmax = LLONG_MAX;
 const ll llmin = LLONG_MIN;
 
-int makenum(int a, int k)
-{
-    int res;
-    if (a + k - 1 < 2 * k)
-    {
-        res = (1 << k) - 1;
-        res <<= (2 * k) - a - k;
-        return res;
-    }
-    res = (1 << k) - 1;
-    res <<= ((2 * k) - a);
-    int help = (1 << (2 * k)) - 1;
-    res = help ^ res;
-    return res;
-}
-
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    si a;
-    int num = intmin;
+    nc(n);
+    nc(q);
+    vi a(n);
     for (int i = 0; i < n; i++)
     {
-        int b;
-        cin >> b;
-        a.insert(b % (2 * k));
-        num = max(num, b);
+        cin >> a[i];
     }
-
-    int x = (1 << (2 * k)) - 1;
-
-    for (auto curr : a)
+    vvi track(30, vi(n));
+    int pre = -1;
+    for (int i = 0; i < 30; i++)
     {
-        x = x & makenum(curr, k);
-    }
-    if (x == 0)
-    {
-        cout << -1 << endl;
-        return;
-    }
-    int msb = 0;
-    int i = 1;
-    while (x)
-    {
-        if (x & 1)
+        int curr = pow(2, i);
+        pre = -1;
+        for (int j = 0; j < n; j++)
         {
-            msb = i;
+            if (a[j] >= curr)
+            {
+                pre = j;
+            }
+            track[i][j] = pre;
         }
-        x >>= 1;
-        i++;
     }
-    ll result = (2 * k) - msb;
-    if (result == 0)
+    viac(b, q);
+    vi prea(n + 1, 0);
+    for (int i = n - 1; i >= 0; i--)
     {
-        result--;
+        prea[i] = a[i] ^ prea[i + 1];
     }
-    result = (1LL * (num / (2 * k)) * (2 * k)) + result;
-    cout << result << endl;
+
+    for (int k = 0; k < q; k++)
+    {
+        int x = b[k];
+        int curr = x;
+        int ans = 0;
+        int msb = (int)log2(x);
+        if (x == 1)
+        {
+            if (a[n - 1] == 1)
+            {
+                cout << 1 << " ";
+            }
+            else
+            {
+                cout << 0 << " ";
+            }
+        }
+        int i = track[msb][n - 1];
+        while (i >= 0)
+        {
+            x = curr ^ prea[i + 1];
+            if (x < a[i])
+            {
+                break;
+            }
+            if (x == a[i])
+            {
+                i--;
+                break;
+            }
+            msb = (int)log2(curr ^ prea[i]);
+            if (i == 0)
+            {
+                i--;
+            }
+            else
+            {
+                i = track[msb][--i];
+            }
+        }
+        ans += n - i - 1;
+        cout << ans << " ";
+    }
+    cout << endl;
     return;
 }
 
@@ -104,11 +141,13 @@ int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    int INP;
-    cin >> INP;
-    while (INP--)
+    ll INT;
+    cin >> INT;
+    while (INT)
     {
         solve();
+        INT--;
     }
+
     return 0;
 }

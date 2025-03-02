@@ -76,7 +76,25 @@ const ll llmin = LLONG_MIN;
 
 void solve()
 {
-    
+    inc(n);
+    viac(a, n);
+    sort(all(a));
+    if (a[0] != 1)
+    {
+        cout << "NO\n";
+        return;
+    }
+    long long sum = a[0];
+    for (int i = 1; i < n; ++i)
+    {
+        if (sum < a[i])
+        {
+            cout << "NO\n";
+            return;
+        }
+        sum += a[i];
+    }
+    cout << "YES\n";
 }
 
 int main()
