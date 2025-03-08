@@ -73,16 +73,35 @@ const int intmax = INT_MAX;
 const int intmin = INT_MIN;
 const ll llmax = LLONG_MAX;
 const ll llmin = LLONG_MIN;
-const int mod = 1e9 + 7;
 
 void solve()
 {
     inc(n);
     viac(a, n);
-    int i = 0;
-    int j = n - 1;
-    int last = a[j];
-    while(a[j] == last){}
+    ll ans = -1;
+    vll track(1001, -1);
+    for (int i = 0; i < n; i++)
+    {
+        track[a[i]] = i + 1;
+    }
+    for (int i = 1; i < 1001; i++)
+    {
+        for (int j = 1; j < 1001; j++)
+        {
+            if (track[i] == -1 || track[j] == -1)
+            {
+                continue;
+            }
+            
+            if (__gcd(i, j) == 1)
+            {
+                ans = max(ans,track[i] + track[j]);
+            }
+        }
+    }
+    
+    cout << ans << endl;
+    return;
 }
 
 int main()

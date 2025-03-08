@@ -81,8 +81,32 @@ void solve()
     viac(a, n);
     int i = 0;
     int j = n - 1;
-    int last = a[j];
-    while(a[j] == last){}
+    ll sum1 = 0;
+    ll sum2 = 0;
+    int ans = 0;
+    while (j - i >= -1)
+    {
+        if (sum1 == sum2)
+        {
+            ans = i + n - j - 1;
+            sum1 += a[i];
+            sum2 += a[j];
+            i++;
+            j--;
+        }
+        else if (sum1 < sum2)
+        {
+            sum1 += a[i];
+            i++;
+        }
+        else
+        {
+            sum2 += a[j];
+            j--;
+        }
+    }
+    cout << ans << endl;
+    return;
 }
 
 int main()

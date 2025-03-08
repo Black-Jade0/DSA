@@ -78,11 +78,20 @@ const int mod = 1e9 + 7;
 void solve()
 {
     inc(n);
+    inc(k);
     viac(a, n);
-    int i = 0;
-    int j = n - 1;
-    int last = a[j];
-    while(a[j] == last){}
+    sort(a.begin(), a.end());
+    for (int i = 0; i < n - 1; i++)
+    {
+        int temp = a[i];
+        if (binary_search(a.begin() + i + 1, a.end(), k + temp))
+        {
+            cout << "YES" << nl;
+            return;
+        }
+    }
+    cout << "NO" << nl;
+    return;
 }
 
 int main()

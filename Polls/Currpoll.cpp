@@ -23,61 +23,30 @@ int main()
 
     // Answer: c. -1
 
-    int c = 3;
-    cout << c++ * ++c << endl;
-    // a. 15
-    // b. 16
-    // c. 12
-    // d. 25
-
-    // Explanation: c++ is post-increment (c = 3, then c becomes 4), ++c is pre-increment (c becomes 5), so 3 * 5 = 15.
-    // Answer: a. 15
-
-    int g = 1;
-    cout << (g << 3) << endl;
-    // a. 3
-    // b. 8
-    // c. 1000
-    // d. 1
-
-    // Explanation: Left shift by 3 (g = 1 << 3) gives 1 * (2^3) = 8.
-    // Answer: b. 8
-
-    int a = 10;
-    double b = 3.5;
-    cout << a / b << endl;
-    // a. 2
-    // b. 3
-    // c. 2.857
-    // d. 2.9
-
-    // Explanation: The division promotes a to double, so 10.0/3.5 = 2.857....
-    // Answer: c 2.857
-
-    int d = 10;
-    int *p = &d;
-    cout << p + 1 << endl;
-    // a. 0x5ffe78
-    // b. 11
-    // c. 18973
+    int e = 5, f = 3;
+    cout << (e ^ f) << endl;
+    // a. 6
+    // b. 125
+    // c. 7
     // d. Error
 
-    // Explanation: p + 1 increments the pointer to the next memory address for an int, which is 4 bytes away.
-    // Answer: a. 0x5ffe78 (or similar address, depends on the machine)
+    // Explanation: XOR operation between 5 (101) and 3 (011) gives 6 (110).
+    // Answer: a. 6
 
-    string st = "";
-    for (int i = 1; i < 100; i++)
-    {
-        st += (to_string(i));
-    }
-    cout << st[100] << endl;
-    // a. 100
-    // b. 99
-    // c. 5
-    // d. 1
+    int arr[] = {1, 2, 3};
+    int *point = arr;
+    cout << *(point + 1) << endl;
+    // a. 1
+    // b. 2
+    // c. 3
+    // d. Error
 
-    // Explanation: st contains concatenated string "123456...99". st[100] accesses the 101st character, which is '5'.
-    // Answer: c. 5
+    // Explanation:
+    // Here arr stores the address of the first element of the array that is 1
+    // we declare a pointer variable point that points to the memory location with memory address arr
+    // Now we increement the memory address by 1 and get the value stored in it via '*' operator i.e. 2.
+
+    // Answer: b. 2
 
     return 0;
 }

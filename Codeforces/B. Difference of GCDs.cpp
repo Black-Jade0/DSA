@@ -78,11 +78,25 @@ const int mod = 1e9 + 7;
 void solve()
 {
     inc(n);
-    viac(a, n);
-    int i = 0;
-    int j = n - 1;
-    int last = a[j];
-    while(a[j] == last){}
+    inc(l);
+    inc(r);
+    vi ans(n);
+    for (int i = 1; i <= n; i++)
+    {
+        int temp = l + ((i - (l % i)) % i);
+        if (temp > r)
+        {
+            cout << "NO" << endl;
+            return;
+        }
+        ans[i - 1] = temp;
+    }
+    cout << "YES" << nl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << ans[i] <<" ";
+    }
+    cout << endl;
 }
 
 int main()

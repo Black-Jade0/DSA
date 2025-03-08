@@ -73,16 +73,30 @@ const int intmax = INT_MAX;
 const int intmin = INT_MIN;
 const ll llmax = LLONG_MAX;
 const ll llmin = LLONG_MIN;
-const int mod = 1e9 + 7;
 
 void solve()
 {
     inc(n);
     viac(a, n);
-    int i = 0;
-    int j = n - 1;
-    int last = a[j];
-    while(a[j] == last){}
+    ll sum = 0;
+    int count = 0;
+    fll(i, 0, n)
+    {
+        if (a[i] < 0)
+        {
+            count++;
+        }
+        sum += abs(a[i]);
+    }
+    if (count % 2 == 0)
+    {
+        cout << sum << nl;
+    }
+    else
+    {
+        sort(all(a),[](int x, int y) { return abs(x) < abs(y); });
+        cout << sum - (2 * abs(a[0])) << nl;
+    }
 }
 
 int main()

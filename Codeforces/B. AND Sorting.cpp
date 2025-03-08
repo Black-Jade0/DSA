@@ -79,10 +79,16 @@ void solve()
 {
     inc(n);
     viac(a, n);
-    int i = 0;
-    int j = n - 1;
-    int last = a[j];
-    while(a[j] == last){}
+    int track = intmax;
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] != i)
+        {
+            track = track & a[i];
+        }
+    }
+    cout << track << endl;
+    return;
 }
 
 int main()
