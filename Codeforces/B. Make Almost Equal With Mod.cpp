@@ -15,10 +15,6 @@ using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
 using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
-using pqi = priority_queue<int>;
-using pqgi = priority_queue<int, vi, greater<int>>;
-using pqpii = priority_queue<pii>;
-using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 using si = set<int>;
 using sll = set<ll>;
 using spii = set<pii>;
@@ -37,11 +33,14 @@ using mpll = map<ll, ll>;
 using mpii = map<int, int>;
 using mpgii = map<int, int, greater<int>>;
 using mpipii = map<int, pair<int, int>>;
-using mpipipqi = map<int, pair<int, pqi>>;
 using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
+using pqi = priority_queue<int>;
+using pqgi = priority_queue<int, vi, greater<int>>;
+using pqpii = priority_queue<pii>;
+using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 
 #define ilen(a) (int)a.size()
 #define llen(a) (ll) a.size()
@@ -49,8 +48,6 @@ using mppiimpii = map<pii, mpii>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fll(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define sorvi(a) sort(a.begin(), a.end())
-#define sorvig(a) sort(a.begin(), a.end(), greater<int>{})
 #define inc(n) \
     int n;     \
     cin >> n;
@@ -88,26 +85,29 @@ const int mod = 1e9 + 7;
 void solve()
 {
     inc(n);
-    inc(k);
-    ll a = (k * 2) - 1;
-    if (n <= k)
+    vllac(a, n);
+    if (n == 2)
     {
-        cout << 1 << endl;
+        cout << max(a[0], a[1]) + 1 << endl;
         return;
     }
-    ll ans = 0;
-    ans += (n / a) * 2;
-    n = n % a;
-    if (n <= k)
+    ll ans = 2;
+    int count = 2;
+    while (count <= 62)
     {
-        ans++;
+        sll track;
+        for (int i = 0; i < n; i++)
+        {
+            track.insert(a[i] % ans);
+        }
+        if (track.size() == 2)
+        {
+            cout << ans << endl;
+            return;
+        }
+        ans = (1LL << count);
+        count++;
     }
-    else
-    {
-        ans += 2;
-    }
-    cout << ans << endl;
-    return;
 }
 
 int main()
@@ -116,9 +116,10 @@ int main()
     cin.tie(0);
     ll INT;
     cin >> INT;
-    while (INT--)
+    while (INT)
     {
         solve();
+        INT--;
     }
 
     return 0;

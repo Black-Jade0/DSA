@@ -88,25 +88,52 @@ const int mod = 1e9 + 7;
 void solve()
 {
     inc(n);
-    inc(k);
-    ll a = (k * 2) - 1;
-    if (n <= k)
+    viac(a, n);
+    viac(b, n);
+    vi rich;
+    vi poor;
+    vi diff(n);
+    for (int i = 0; i < n; i++)
     {
-        cout << 1 << endl;
+        diff[i] = b[i] - a[i];
+    }
+    sorvig(diff);
+    for (int i = 0; i < n; i++)
+    {
+        if (diff[i] < 0)
+        {
+            poor.push_back(abs(diff[i]));
+        }
+        else
+        {
+            rich.push_back(diff[i]);
+        }
+    }
+    sorvig(poor);
+    ll ans = 0;
+    int i = 0;
+    int j = 0;
+    if (poor.size() == 0)
+    {
+        cout << n/2 << nl;
         return;
     }
-    ll ans = 0;
-    ans += (n / a) * 2;
-    n = n % a;
-    if (n <= k)
+    
+    while (i < rich.size() && j < poor.size())
     {
-        ans++;
+        int r = rich[i];
+        while (j < poor.size() && poor[j] > r)
+        {
+            j++;
+        }
+        if (j < poor.size())
+        {
+            ans++;
+            j++;
+            i++;
+        }
     }
-    else
-    {
-        ans += 2;
-    }
-    cout << ans << endl;
+    cout << ans + ((rich.size() - i) / 2) << nl;
     return;
 }
 
@@ -116,9 +143,10 @@ int main()
     cin.tie(0);
     ll INT;
     cin >> INT;
-    while (INT--)
+    while (INT)
     {
         solve();
+        INT--;
     }
 
     return 0;

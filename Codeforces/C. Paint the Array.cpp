@@ -15,10 +15,6 @@ using vvb = vector<vector<bool>>;
 using vpii = vector<pair<int, int>>;
 using vpipii = vector<pair<int, pii>>;
 using vpllll = vector<pair<long long, long long>>;
-using pqi = priority_queue<int>;
-using pqgi = priority_queue<int, vi, greater<int>>;
-using pqpii = priority_queue<pii>;
-using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 using si = set<int>;
 using sll = set<ll>;
 using spii = set<pii>;
@@ -35,13 +31,15 @@ using mpsi = map<string, int>;
 using mpsl = map<string, ll>;
 using mpll = map<ll, ll>;
 using mpii = map<int, int>;
-using mpgii = map<int, int, greater<int>>;
 using mpipii = map<int, pair<int, int>>;
-using mpipipqi = map<int, pair<int, pqi>>;
 using mpgipii = map<int, pair<int, int>, greater<int>>;
 using mpllpllll = map<long long, pair<long long, long long>>;
 using mppiivi = map<pii, vi>;
 using mppiimpii = map<pii, mpii>;
+using pqi = priority_queue<int>;
+using pqgi = priority_queue<int, vi, greater<int>>;
+using pqpii = priority_queue<pii>;
+using pqgpii = priority_queue<pii, vpii, greater<pii>>;
 
 #define ilen(a) (int)a.size()
 #define llen(a) (ll) a.size()
@@ -49,8 +47,6 @@ using mppiimpii = map<pii, mpii>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fll(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define sorvi(a) sort(a.begin(), a.end())
-#define sorvig(a) sort(a.begin(), a.end(), greater<int>{})
 #define inc(n) \
     int n;     \
     cin >> n;
@@ -63,8 +59,8 @@ using mppiimpii = map<pii, mpii>;
     {                             \
         cin >> a[i];              \
     }
-#define vllac(a, n)               \
-    vll a(n);                     \
+#define vllac(a, n)                \
+    vll a(n);                      \
     for (int i = 0; i < (n); i++) \
     {                             \
         cin >> a[i];              \
@@ -88,25 +84,50 @@ const int mod = 1e9 + 7;
 void solve()
 {
     inc(n);
-    inc(k);
-    ll a = (k * 2) - 1;
-    if (n <= k)
+    vllac(a, n);
+    ll first = 0;
+    ll second = 0;
+    for (int i = 0; i < n; i++)
     {
-        cout << 1 << endl;
+        first = __gcd(first, a[i]);
+        i++;
+    }
+    bool flag = true;
+    for (int i = 1; i < n; i++)
+    {
+        if (a[i] % first == 0)
+        {
+            flag = false;
+            break;
+        }
+        i++;
+    }
+    if (flag)
+    {
+        cout << first << endl;
         return;
     }
-    ll ans = 0;
-    ans += (n / a) * 2;
-    n = n % a;
-    if (n <= k)
+    flag = true;
+    for (int i = 1; i < n; i++)
     {
-        ans++;
+        second = __gcd(second, a[i]);
+        i++;
     }
-    else
+    for (int i = 0; i < n; i++)
     {
-        ans += 2;
+        if (a[i] % second == 0)
+        {
+            flag = false;
+            break;
+        }
+        i++;
     }
-    cout << ans << endl;
+    if (flag)
+    {
+        cout << second << endl;
+        return;
+    }
+    cout << 0 << endl;
     return;
 }
 
@@ -116,9 +137,10 @@ int main()
     cin.tie(0);
     ll INT;
     cin >> INT;
-    while (INT--)
+    while (INT)
     {
         solve();
+        INT--;
     }
 
     return 0;

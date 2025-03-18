@@ -49,8 +49,6 @@ using mppiimpii = map<pii, mpii>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fll(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define sorvi(a) sort(a.begin(), a.end())
-#define sorvig(a) sort(a.begin(), a.end(), greater<int>{})
 #define inc(n) \
     int n;     \
     cin >> n;
@@ -88,25 +86,45 @@ const int mod = 1e9 + 7;
 void solve()
 {
     inc(n);
-    inc(k);
-    ll a = (k * 2) - 1;
-    if (n <= k)
+    inc(m);
+    vs a(n);
+    fi(i, 0, n)
     {
-        cout << 1 << endl;
-        return;
+        cin >> a[i];
     }
-    ll ans = 0;
-    ans += (n / a) * 2;
-    n = n % a;
-    if (n <= k)
+    int ncount = 0;
+    int mcount = 0;
+    for (int i = 0; i < n; i++)
     {
-        ans++;
+        int count = 0;
+        for (int j = 0; j < m; j++)
+        {
+            if (a[i][j] == '1')
+            {
+                count++;
+            }
+        }
+        if (count & 1)
+        {
+            ncount++;
+        }
     }
-    else
+    for (int i = 0; i < m; i++)
     {
-        ans += 2;
+        int count = 0;
+        for (int j = 0; j < n; j++)
+        {
+            if (a[j][i] == '1')
+            {
+                count++;
+            }
+        }
+        if (count & 1)
+        {
+            mcount++;
+        }
     }
-    cout << ans << endl;
+    cout << max(ncount, mcount) << endl;
     return;
 }
 
@@ -116,9 +134,10 @@ int main()
     cin.tie(0);
     ll INT;
     cin >> INT;
-    while (INT--)
+    while (INT)
     {
         solve();
+        INT--;
     }
 
     return 0;

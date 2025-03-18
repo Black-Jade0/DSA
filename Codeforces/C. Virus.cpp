@@ -88,25 +88,47 @@ const int mod = 1e9 + 7;
 void solve()
 {
     inc(n);
-    inc(k);
-    ll a = (k * 2) - 1;
-    if (n <= k)
+    inc(m);
+    vi a(n, 0);
+    for (int i = 0; i < m; i++)
     {
-        cout << 1 << endl;
-        return;
+        int T;
+        cin >> T;
+        a[T - 1] = 1;
     }
+    vi check;
+    for (int i = 0; i < n;)
+    {
+        int temp = 0;
+        while (i < n && a[i] == 1)
+        {
+            i++;
+        }
+        while (i < n && a[i] == 0)
+        {
+            i++;
+            temp++;
+        }
+        if (temp > 0)
+        {
+            check.push_back(temp);
+        }
+    }
+    sorvig(check);
+    int i = 0;
+    int j = 0;
     ll ans = 0;
-    ans += (n / a) * 2;
-    n = n % a;
-    if (n <= k)
+    while (i < check.size())
     {
-        ans++;
+        int temp = check[i];
+        if (temp - j > 0)
+        {
+            ans += max(temp - j - 1, 1);
+            j += min(temp - j, 2);
+        }
+        i++;
     }
-    else
-    {
-        ans += 2;
-    }
-    cout << ans << endl;
+    cout << n - ans << nl;
     return;
 }
 
@@ -116,9 +138,10 @@ int main()
     cin.tie(0);
     ll INT;
     cin >> INT;
-    while (INT--)
+    while (INT)
     {
         solve();
+        INT--;
     }
 
     return 0;

@@ -49,8 +49,6 @@ using mppiimpii = map<pii, mpii>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fll(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define sorvi(a) sort(a.begin(), a.end())
-#define sorvig(a) sort(a.begin(), a.end(), greater<int>{})
 #define inc(n) \
     int n;     \
     cin >> n;
@@ -88,23 +86,28 @@ const int mod = 1e9 + 7;
 void solve()
 {
     inc(n);
-    inc(k);
-    ll a = (k * 2) - 1;
-    if (n <= k)
+    inc(m);
+    vvi a(m, vi(n));
+    for (int i = 0; i < n; i++)
     {
-        cout << 1 << endl;
-        return;
+        for (int j = 0; j < m; j++)
+        {
+            cin >> a[j][i];
+        }
+    }
+    for (int i = 0; i < m; i++)
+    {
+        sort(a[i].begin(), a[i].end());
     }
     ll ans = 0;
-    ans += (n / a) * 2;
-    n = n % a;
-    if (n <= k)
+    for (int i = 0; i < m; i++)
     {
-        ans++;
-    }
-    else
-    {
-        ans += 2;
+        ll prev = a[i][0];
+        for (int j = 1; j < n; j++)
+        {
+            ans = 1LL * ans - prev + (1LL * j * a[i][j]);
+            prev += a[i][j];
+        }
     }
     cout << ans << endl;
     return;
@@ -116,9 +119,10 @@ int main()
     cin.tie(0);
     ll INT;
     cin >> INT;
-    while (INT--)
+    while (INT)
     {
         solve();
+        INT--;
     }
 
     return 0;

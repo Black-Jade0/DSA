@@ -49,8 +49,6 @@ using mppiimpii = map<pii, mpii>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fll(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define sorvi(a) sort(a.begin(), a.end())
-#define sorvig(a) sort(a.begin(), a.end(), greater<int>{})
 #define inc(n) \
     int n;     \
     cin >> n;
@@ -89,22 +87,34 @@ void solve()
 {
     inc(n);
     inc(k);
-    ll a = (k * 2) - 1;
-    if (n <= k)
+    viac(a, n);
+    mpipipqi track;
+    for (int i = 0; i < n; i++)
     {
-        cout << 1 << endl;
-        return;
+        int last = track.count(a[i]) ? track[a[i]].first : -1;
+        int curr = i - last - 1;
+        if (curr > 0)
+        {
+            track[a[i]].second.push(curr);
+        }
+        track[a[i]].first = i;
     }
-    ll ans = 0;
-    ans += (n / a) * 2;
-    n = n % a;
-    if (n <= k)
+    int ans = intmax;
+    for (auto &x : track)
     {
-        ans++;
-    }
-    else
-    {
-        ans += 2;
+        int curr = n - x.second.first - 1;
+        if (curr > 0)
+        {
+            x.second.second.push(curr);
+        }
+        int first = x.second.second.size() ? x.second.second.top() : 0;
+        if (first)
+        {
+            x.second.second.pop();
+        }
+        first = first / 2;
+        int second = x.second.second.size() ? x.second.second.top() : 0;
+        ans = min(ans, max(first, second));
     }
     cout << ans << endl;
     return;
@@ -116,9 +126,10 @@ int main()
     cin.tie(0);
     ll INT;
     cin >> INT;
-    while (INT--)
+    while (INT)
     {
         solve();
+        INT--;
     }
 
     return 0;

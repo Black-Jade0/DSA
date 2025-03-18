@@ -49,8 +49,6 @@ using mppiimpii = map<pii, mpii>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fll(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define sorvi(a) sort(a.begin(), a.end())
-#define sorvig(a) sort(a.begin(), a.end(), greater<int>{})
 #define inc(n) \
     int n;     \
     cin >> n;
@@ -89,25 +87,39 @@ void solve()
 {
     inc(n);
     inc(k);
-    ll a = (k * 2) - 1;
-    if (n <= k)
+    viac(a, n);
+    viac(b, k);
+    int temp = a[0];
+    vll height(n, 0);
+    height[0] = a[0];
+    for (int i = 1; i < n; i++)
     {
-        cout << 1 << endl;
-        return;
+        height[i] = 1LL * height[i - 1] + a[i];
     }
-    ll ans = 0;
-    ans += (n / a) * 2;
-    n = n % a;
-    if (n <= k)
+
+    fi(i, 1, n)
     {
-        ans++;
+        temp = max(temp, a[i]);
+        a[i] = temp;
     }
-    else
+    fi(i, 0, k)
     {
-        ans += 2;
+        auto it = upper_bound(a.begin(), a.end(), b[i]);
+        if (it == a.begin())
+        {
+            cout << 0 << " ";
+            continue;
+        }
+        if (it == a.end())
+        {
+            cout << height[n - 1] << " ";
+            continue;
+        }
+        
+        int ans = it - a.begin();
+        cout << height[ans - 1] << " ";
     }
-    cout << ans << endl;
-    return;
+    cout << endl;
 }
 
 int main()
@@ -116,9 +128,10 @@ int main()
     cin.tie(0);
     ll INT;
     cin >> INT;
-    while (INT--)
+    while (INT)
     {
         solve();
+        INT--;
     }
 
     return 0;

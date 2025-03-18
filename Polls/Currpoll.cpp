@@ -55,21 +55,6 @@ int main()
     // Explanation: XOR operation between 5 (101) and 3 (011) gives 6 (110).
     // Answer: a. 6
 
-    int arr[] = {1, 2, 3};
-    int *point = arr;
-    cout << *(point + 1) << endl;
-    // a. 1
-    // b. 2
-    // c. 3
-    // d. Error
-
-    // Explanation:
-    // Here arr stores the address of the first element of the array that is 1
-    // we declare a pointer variable point that points to the memory location with memory address arr
-    // Now we increement the memory address by 1 and get the value stored in it via '*' operator i.e. 2.
-
-    // Answer: b. 2
-
     double x = 0.1 + 0.2;
     if (x == 0.3)
         cout << "Equal" << endl;
@@ -86,6 +71,7 @@ int main()
     // 0.1 and 0.2 cannot be represented exactly in binary, so 0.1 + 0.2 results in something slightly different from 0.3,
     // typically 0.30000000000000004.
     // The condition x == 0.3 fails, and it goes to the else branch.
+    // Answer : b) Not Equal
 
     fun(5);
     // A) 5 4 3 2 1
