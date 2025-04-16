@@ -49,8 +49,8 @@ using mppiimpii = map<pii, mpii>;
 #define fi(i, j, n) for (int i = j; i < n; i++)
 #define fll(i, j, n) for (ll i = j; i < n; i++)
 #define fla(i, a, b) for (ll i = (a); i <= (b); i++)
-#define sorvi(a) sort(a.begin(), a.end())
-#define sorvig(a) sort(a.begin(), a.end(), greater<int>{})
+#define svi(a) sort(a.begin(), a.end())
+#define svig(a) sort(a.begin(), a.end(), greater<int>{})
 #define inc(n) \
     int n;     \
     cin >> n;
@@ -87,48 +87,50 @@ const int mod = 1e9 + 7;
 
 void solve()
 {
-    inc(n);
-    inc(m);
-    vi a(n, 0);
+    llnc(n);
+    llnc(m);
+    vll b(m, 0);
     for (int i = 0; i < m; i++)
     {
-        int T;
-        cin >> T;
-        a[T - 1] = 1;
+        cin >> b[i];
     }
-    vi check;
-    for (int i = 0; i < n;)
+    vll check;
+    svi(b);
+    for (int i = 1; i < m; i++)
     {
-        int temp = 0;
-        while (i < n && a[i] == 1)
+        if (b[i] - b[i - 1] - 1 > 0)
         {
-            i++;
-        }
-        while (i < n && a[i] == 0)
-        {
-            i++;
-            temp++;
-        }
-        if (temp > 0)
-        {
-            check.push_back(temp);
+            check.push_back(b[i] - b[i - 1] - 1);
         }
     }
-    sorvig(check);
-    int i = 0;
-    int j = 0;
+    if (n - b[m - 1] + b[0] - 1 > 0)
+    {
+        check.push_back(n - b[m - 1] + b[0] - 1);
+    }
+
+    svig(check);
+    ll i = 0;
+    ll j = 0;
     ll ans = 0;
     while (i < check.size())
     {
-        int temp = check[i];
+        ll temp = check[i];
         if (temp - j > 0)
         {
-            ans += max(temp - j - 1, 1);
-            j += min(temp - j, 2);
+            ll tem = max(temp - j - 1, 1LL);
+            ans += tem;
+            if (tem == 1)
+            {
+                j += 2;
+            }
+            else
+            {
+                j += 4;
+            }
         }
         i++;
     }
-    cout << n - ans << nl;
+    cout << (n - ans) << endl;
     return;
 }
 
